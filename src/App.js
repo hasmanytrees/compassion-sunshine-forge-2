@@ -1,28 +1,39 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { connect } from 'react-redux';
 import './App.css';
+import { editSpace } from './actions/index';
+import SpaceEdit from './SpaceEdit';
+import SpaceList from './SpaceList';
+import SpaceDetail from './SpaceDetail';
 
-class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+export class App extends Component {
+    render() {
+        const spaceEdit = this.props.view === 'SpaceEdit' ? <SpaceEdit /> : '';
+        const spaceDetail = this.props.view === 'SpaceDetail' ? <SpaceDetail /> : '';
+
+        return (
+            <div className="App">
+                <div className="Sidebar">
+                    <SpaceList />
+                    <button id="addSpace" onClick={() => this.props.editSpace({})}>Add Space</button>
+                </div>
+                {spaceEdit}
+                {spaceDetail}
+            </div>
+        );
+    }
 }
 
-export default App;
+const mapStateToProps = (state) => {
+    return {
+        'view': state.view
+    }
+};
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        'editSpace': (space) => dispatch(editSpace(space)),
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

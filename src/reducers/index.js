@@ -17,7 +17,7 @@ const reducer = (state = initialState, action) => {
                 return { ...state, spaces, view: 'SpaceDetail', currentSpace: action.space };
             }
             else {
-                const spaces = state.spaces.filter((space) => space.uuid !== action.space.id);
+                const spaces = state.spaces.filter((space) => space.id !== action.space.id);
                 spaces.push(action.space);
                 return { ...state, spaces, view: 'SpaceDetail', currentSpace: action.space };
             }

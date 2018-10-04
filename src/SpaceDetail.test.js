@@ -5,7 +5,7 @@ import { SpaceDetail } from './SpaceDetail';
 
 describe('SpaceDetail', () => {
     it('should render and bind data', () => {
-        const detail = shallow(<SpaceDetail currentSpace={{ name: 'Test Space', memory: 20, disk: 40 }} />);
+        const detail = shallow(<SpaceDetail currentSpace={{ name: 'Test Space', memory_quotamb: 20, disk_quotamb: 40 }} />);
 
         expect(detail.find('#spaceDetail')).to.have.length(1);
 

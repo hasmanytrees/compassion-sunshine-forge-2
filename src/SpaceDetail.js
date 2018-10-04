@@ -7,9 +7,9 @@ export class SpaceDetail extends Component {
             <div id="spaceDetail">
                 <h2 id="name">{this.props.currentSpace.name}</h2>
                 <b>Memory</b><br />
-                <span id="memory">{this.props.currentSpace.memory}</span><br />
+                <span id="memory">{this.props.currentSpace.memory_quotamb}</span><br />
                 <b>Disk</b><br />
-                <span id="disk">{this.props.currentSpace.disk}</span><br />
+                <span id="disk">{this.props.currentSpace.disk_quotamb}</span><br />
             </div>
         )
     }

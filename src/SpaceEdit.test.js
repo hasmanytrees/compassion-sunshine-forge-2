@@ -9,7 +9,7 @@ describe('SpaceEdit', () => {
 
     beforeEach(() => {
         mockSave = jest.fn();
-        spaceEdit = shallow(<SpaceEdit saveSpace={mockSave} currentSpace={{ name: 'Test Space', memory: 20, disk: 40 }} />);
+        spaceEdit = shallow(<SpaceEdit saveSpace={mockSave} currentSpace={{ name: 'Test Space', memory_quotamb: 20, disk_quotamb: 40 }} />);
     });
 
     it('should exist and have text fields that are populated', () => {
@@ -22,6 +22,10 @@ describe('SpaceEdit', () => {
         expect(spaceEdit.find('#name').props().value).to.equal('Test Space');
         expect(spaceEdit.find('#memory').props().value).to.equal(20);
         expect(spaceEdit.find('#disk').props().value).to.equal(40);
+
+        expect(spaceEdit.state().currentSpace.name).to.equal('Test Space');
+        expect(spaceEdit.state().currentSpace.memory_quotamb).to.equal(20);
+        expect(spaceEdit.state().currentSpace.disk_quotamb).to.equal(40);
     });
 
     it('calls saveSpace when save button is clicked', () => {
@@ -34,23 +38,23 @@ describe('SpaceEdit', () => {
 
     it('should update values when text is entered', () => {
         let name = spaceEdit.find('#name');
-        let memory = spaceEdit.find('#memory');
-        let disk = spaceEdit.find('#disk');
+        let memory_quotamb = spaceEdit.find('#memory');
+        let disk_quotamb = spaceEdit.find('#disk');
 
-        expect(name.props().value).to.equal('Test Space');
-        expect(memory.props().value).to.equal(20);
-        expect(disk.props().value).to.equal(40);
+        let space = spaceEdit.state().currentSpace;
+
+        expect(space.name).to.equal('Test Space');
+        expect(space.memory_quotamb).to.equal(20);
+        expect(space.disk_quotamb).to.equal(40);
 
         name.simulate('change', { target: { value: 'New Test Space' } });
-        memory.simulate('change', { target: { value: 30 } });
-        disk.simulate('change', { target: { value: 50 } });
+        memory_quotamb.simulate('change', { target: { value: 30 } });
+        disk_quotamb.simulate('change', { target: { value: 50 } });
 
-        name = spaceEdit.find('#name');
-        memory = spaceEdit.find('#memory');
-        disk = spaceEdit.find('#disk');
+        space = spaceEdit.state().currentSpace;
 
-        expect(name.props().value).to.equal('New Test Space');
-        expect(memory.props().value).to.equal(30);
-        expect(disk.props().value).to.equal(50);
+        expect(space.name).to.equal('New Test Space');
+        expect(space.memory_quotamb).to.equal(30);
+        expect(space.disk_quotamb).to.equal(50);
     });
 });

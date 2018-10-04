@@ -1,12 +1,16 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import './App.css';
-import { editSpace } from './actions/index';
+import { editSpace, fetchSpaces } from './actions/index';
 import SpaceEdit from './SpaceEdit';
 import SpaceList from './SpaceList';
 import SpaceDetail from './SpaceDetail';
 
 export class App extends Component {
+    componentDidMount() {
+        this.props.fetchSpaces();
+    }
+
     render() {
         const spaceEdit = this.props.view === 'SpaceEdit' ? <SpaceEdit /> : '';
         const spaceDetail = this.props.view === 'SpaceDetail' ? <SpaceDetail /> : '';
@@ -33,6 +37,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         'editSpace': (space) => dispatch(editSpace(space)),
+        'fetchSpaces': () => dispatch(fetchSpaces())
     }
 };
 

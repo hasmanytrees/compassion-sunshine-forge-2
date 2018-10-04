@@ -20,7 +20,7 @@ export class SpaceEdit extends Component {
     handleMemoryChange = (event) => {
         const newState = JSON.parse(JSON.stringify(this.state));
 
-        newState.currentSpace.memory = event.target.value;
+        newState.currentSpace.memory_quotamb = Number(event.target.value);
 
         this.setState(newState);
     }
@@ -28,7 +28,7 @@ export class SpaceEdit extends Component {
     handleDiskChange = (event) => {
         const newState = JSON.parse(JSON.stringify(this.state));
 
-        newState.currentSpace.disk = event.target.value;
+        newState.currentSpace.disk_quotamb = Number(event.target.value);
 
         this.setState(newState);
     }
@@ -39,9 +39,9 @@ export class SpaceEdit extends Component {
                 <b>Name</b><br />
                 <input id="name" value={this.state.currentSpace.name || ''} onChange={(event) => this.handleNameChange(event)} /><br />
                 <b>Memory</b><br />
-                <input id="memory" value={this.state.currentSpace.memory || ''} onChange={(event) => this.handleMemoryChange(event)} /><br />
+                <input id="memory" value={this.state.currentSpace.memory_quotamb || ''} onChange={(event) => this.handleMemoryChange(event)} /><br />
                 <b>Disk</b><br />
-                <input id="disk" value={this.state.currentSpace.disk || ''} onChange={(event) => this.handleDiskChange(event)} /><br />
+                <input id="disk" value={this.state.currentSpace.disk_quotamb || ''} onChange={(event) => this.handleDiskChange(event)} /><br />
                 <button id="save" onClick={() => this.props.saveSpace(this.state.currentSpace)}>Save</button>
             </div>
         );

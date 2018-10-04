@@ -21,6 +21,11 @@ const reducer = (state = initialState, action) => {
                 spaces.push(action.space);
                 return { ...state, spaces, view: 'SpaceDetail', currentSpace: action.space };
             }
+        case 'GET_SPACES':
+            return { ...state, loading: true }
+        case 'GOT_SPACES':
+            const spaces = [...action.spaces];
+            return { ...state, spaces, loading: false };
         default:
             return state;
     }

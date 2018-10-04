@@ -66,4 +66,40 @@ describe('reducer', () => {
         expect(newState.spaces.length).to.equal(state.spaces.length);
         expect(newState.view).to.equal('SpaceDetail');
     });
+
+    it('should update spaces from GOT_SPACES', () => {
+        const state = {
+            view: 'SpaceList',
+            spaces: [],
+            currentSpace: null,
+            loading: true
+        };
+
+        const mockSpaces = [
+            { id: '12345678901234567890123456', name: 'Mock Space 1', memory_quotamb: 20, disk_quotamb: 40 },
+            { id: '22345678901234567890123456', name: 'Mock Space 2', memory_quotamb: 22, disk_quotamb: 42 }
+        ];
+
+        const action = { type: 'GOT_SPACES', spaces: mockSpaces }
+
+        const newState = reducer(state, action);
+
+        expect(newState.spaces.length).to.equal(mockSpaces.length);
+        expect(newState.loading).to.equal(false);
+    });
+
+    it('should set loading to true for GET_SPACES', () => {
+        const state = {
+            view: 'SpaceList',
+            spaces: [],
+            currentSpace: null,
+            loading: false
+        };
+
+        const action = { type: 'GET_SPACES' }
+
+        const newState = reducer(state, action);
+
+        expect(newState.loading).to.equal(true);
+    });
 });

@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { viewSpace } from './actions/index';
 
 export class SpaceList extends Component {
     render() {
-        const list = this.props.spaces.map((space, i) => <li key={i}><a href="#">{space.name}</a></li>);
+        const list = this.props.spaces.map((space, i) => <li key={i}><a href="#" onClick={() => this.props.viewSpace(space)}>{space.name}</a></li>);
 
         return (
             <ul id="spaceList">
@@ -21,6 +22,7 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
+        "viewSpace": (space) => dispatch(viewSpace(space))
     }
 };
 

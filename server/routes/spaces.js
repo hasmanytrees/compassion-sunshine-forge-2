@@ -15,4 +15,10 @@ router.post('/', async function (req, res) {
     res.json(space.toJSON());
 });
 
+router.delete('/', async function (req, res) {
+    const space = Space.forge(req.body).destroy();
+
+    res.end();
+});
+
 module.exports = router;

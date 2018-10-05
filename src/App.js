@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faPenSquare, faTrash } from '@fortawesome/free-solid-svg-icons'
 import './App.css';
-import { editSpace, fetchSpaces } from './actions/index';
+import { editSpace, getSpaces } from './actions/index';
 import SpaceEdit from './SpaceEdit';
 import SpaceList from './SpaceList';
 import SpaceDetail from './SpaceDetail';
 
+library.add(faPenSquare);
+library.add(faTrash);
+
 export class App extends Component {
     componentDidMount() {
-        this.props.fetchSpaces();
+        this.props.getSpaces();
     }
 
     render() {
@@ -37,7 +43,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         'editSpace': (space) => dispatch(editSpace(space)),
-        'fetchSpaces': () => dispatch(fetchSpaces())
+        'getSpaces': () => dispatch(getSpaces())
     }
 };
 

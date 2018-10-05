@@ -7,25 +7,32 @@ const initialState = {
 };
 
 const reducer = (state = initialState, action) => {
+    let spaces;
+
     switch (action.type) {
         case 'EDIT_SPACE':
             return { ...state, view: 'SpaceEdit', currentSpace: action.space };
         case 'SAVE_SPACE':
             if (!action.space.id) {
                 action.space.id = uuid();
-                const spaces = [...state.spaces, action.space];
+                spaces = [...state.spaces, action.space];
                 return { ...state, spaces, view: 'SpaceDetail', currentSpace: action.space };
             }
             else {
-                const spaces = state.spaces.filter((space) => space.id !== action.space.id);
+                spaces = state.spaces.filter((space) => space.id !== action.space.id);
                 spaces.push(action.space);
                 return { ...state, spaces, view: 'SpaceDetail', currentSpace: action.space };
             }
         case 'GET_SPACES':
             return { ...state, loading: true }
         case 'GOT_SPACES':
-            const spaces = [...action.spaces];
+            spaces = [...action.spaces];
             return { ...state, spaces, loading: false };
+        case 'VIEW_SPACE':
+            return { ...state, view: 'SpaceDetail', currentSpace: action.space };
+        case 'DELETE_SPACE':
+            spaces = state.spaces.filter((space) => space.id !== action.space.id);
+            return { ...state, view: '', spaces, currentSpace: null };
         default:
             return state;
     }

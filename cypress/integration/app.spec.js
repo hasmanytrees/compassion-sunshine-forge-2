@@ -13,6 +13,19 @@ describe('Main Page', function () {
         clearDB();
     });
 
+    const createSpace = () => {
+        // Go to edit page
+        cy.get('#addSpace').click();
+
+        // Entering the details
+        cy.get('#name').type('The Awesome Forrest App 3000');
+        cy.get('#memory').type('1024');
+        cy.get('#disk').type('1');
+
+        // Save
+        cy.get('#save').click();
+    }
+
     it('displays button when visited', function () {
         cy.get('#addSpace');
     });
@@ -69,5 +82,77 @@ describe('Main Page', function () {
 
         // Switching to new views
         cy.get('#spaceList').should('have.length', 1); // should be in sidebar
+    });
+
+    it('shows details of space when a space is clicked in sidebar', function () {
+        createSpace()
+
+        // Reload
+        cy.reload();
+
+        // Click item in sidebar
+        cy.get('#spaceList').get('a').first().click();
+
+        cy.get('#spaceDetail');
+    });
+
+    it('renders the edit space view when clicking the edit button on a space detail view', function () {
+        createSpace()
+
+        // Click Edit on the space detail view
+        cy.get('#editButton').click();
+
+        cy.get('#spaceEdit');
+    });
+
+    it('returns to space detail screen when clicking the cancel button', function () {
+        createSpace()
+
+        cy.get('#spaceList').get('a').first().click();
+        cy.get('#editButton').click();
+        cy.get('#memory').type('7');
+        cy.get('#cancel').click();
+
+        cy.get('#spaceDetail');
+
+        cy.get('#memory').should('not.contain', '7');
+    });
+
+    it('should update an existing space after editing it and clicking save', function () {
+        createSpace();
+
+        cy.get('#spaceList').get('a').first().click();
+        cy.get('#editButton').click();
+
+        cy.get('#memory').type('7');
+        cy.get('#save').click();
+
+        cy.get('#memory').contains('7');
+    });
+
+    it('should prompt user for confirmation when delete button is clicked', function () {
+        cy.on('window:confirm', (str) => {
+            expect(str).to.eq('Delete?');
+        });
+
+        createSpace();
+
+        cy.get('#spaceList').get('a').first().click();
+
+        cy.get('#deleteButton').click();
+    });
+
+    it.only('removes space from sidebar when delete is confirmed', function () {
+        cy.on('window:confirm', (str) => {
+            expect(str).to.eq('Delete?');
+        });
+
+        createSpace();
+
+        cy.get('#spaceList').get('a').first().click();
+
+        cy.get('#deleteButton').click();
+
+        cy.get('#spaceList').get('a').should('have.length', 0);
     });
 });

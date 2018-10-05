@@ -102,4 +102,47 @@ describe('reducer', () => {
 
         expect(newState.loading).to.equal(true);
     });
+
+    it('should view space for VIEW_SPACE', () => {
+        const mockSpaces = [
+            { id: '12345678901234567890123456', name: 'Mock Space 1', memory_quotamb: 20, disk_quotamb: 40 },
+            { id: '22345678901234567890123456', name: 'Mock Space 2', memory_quotamb: 22, disk_quotamb: 42 }
+        ];
+
+        const state = {
+            view: 'SpaceList',
+            spaces: mockSpaces,
+            currentSpace: null,
+            loading: false
+        };
+
+        const action = { type: 'VIEW_SPACE', space: mockSpaces[0] }
+
+        const newState = reducer(state, action);
+
+        expect(newState.currentSpace).to.deep.equal(mockSpaces[0]);
+        expect(newState.view).to.equal('SpaceDetail');
+    });
+
+    it('should delete space for DELETE_SPACE', () => {
+        const mockSpaces = [
+            { id: '12345678901234567890123456', name: 'Mock Space 1', memory_quotamb: 20, disk_quotamb: 40 },
+            { id: '22345678901234567890123456', name: 'Mock Space 2', memory_quotamb: 22, disk_quotamb: 42 }
+        ];
+
+        const state = {
+            view: 'SpaceList',
+            spaces: mockSpaces,
+            currentSpace: mockSpaces[0],
+            loading: false
+        };
+
+        const action = { type: 'DELETE_SPACE', space: mockSpaces[0] }
+
+        const newState = reducer(state, action);
+
+        expect(newState.currentSpace).to.equal(null);
+        expect(newState.view).to.equal('');
+        expect(newState.spaces.length).to.equal(mockSpaces.length - 1);
+    });
 });

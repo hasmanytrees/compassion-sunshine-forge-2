@@ -46,4 +46,26 @@ describe('spaces router', function () {
         expect(res.body.memory_quotamb).to.equal(space.memory_quotamb);
         expect(res.body.disk_quotamb).to.equal(space.disk_quotamb);
     });
+
+    it('should delete space in the database', async () => {
+        let space = {
+            name: 'New Space 1',
+            memory_quotamb: 70,
+            disk_quotamb: 90
+        };
+
+        space = (await api.post('/spaces').send(space)).body;
+
+        let count = 0;
+
+        count = (await api.get('/spaces')).body.length;
+
+        expect(count).to.equal(1);
+
+        await api.delete('/spaces').send(space);
+
+        count = (await api.get('/spaces')).body.length;
+
+        expect(count).to.equal(0);
+    });
 });

@@ -13,7 +13,7 @@ describe('App', () => {
         }
 
         return shallow(<App {...props} />);
-    }
+    };
 
     it('should have an add space button', () => {
         const app = shallowWithDefaults();
@@ -35,7 +35,7 @@ describe('App', () => {
 
     it('should call the getSpaces action on mount', () => {
         const mockGetSpaces = jest.fn();
-        const app = shallowWithDefaults({ fetchSpaces: mockGetSpaces });
+        const app = shallowWithDefaults({ getSpaces: mockGetSpaces });
 
         expect(mockGetSpaces.mock.calls.length).to.equal(1);
     });

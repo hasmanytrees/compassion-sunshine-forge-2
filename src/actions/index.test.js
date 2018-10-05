@@ -25,7 +25,7 @@ describe('async actions', () => {
         const store = mockStore({});
 
         // execute async action (triggering fetch mock)
-        await store.dispatch(actions.postSpace(mockSpace))
+        await store.dispatch(actions.saveSpace(mockSpace))
 
         // assert actions were sent to mock store
         const actualActions = store.getActions();
@@ -48,7 +48,28 @@ describe('async actions', () => {
 
         const store = mockStore({});
 
-        await store.dispatch(actions.fetchSpaces());
+        await store.dispatch(actions.getSpaces());
+
+        const actualActions = store.getActions();
+
+        expect(actualActions).toEqual(expectedActions);
+    });
+
+    it('should send DELETE_SPACE action to delete space from db/api', async () => {
+        const mockSpaces = [
+            { id: '12345678901234567890123456', name: 'Mock Space 1', memory_quotamb: 20, disk_quotamb: 40 },
+            { id: '22345678901234567890123456', name: 'Mock Space 2', memory_quotamb: 22, disk_quotamb: 42 }
+        ];
+
+        fetchMock.delete('/spaces', {});
+
+        const expectedActions = [
+            { type: 'DELETE_SPACE', space: mockSpaces[0] }
+        ]
+
+        const store = mockStore({});
+
+        await store.dispatch(actions.deleteSpace(mockSpaces[0]));
 
         const actualActions = store.getActions();
 

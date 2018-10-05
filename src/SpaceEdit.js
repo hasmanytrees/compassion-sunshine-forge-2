@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { saveSpace } from './actions/index';
+import { saveSpace, viewSpace } from './actions/index';
 
 export class SpaceEdit extends Component {
     constructor(props) {
@@ -43,6 +43,7 @@ export class SpaceEdit extends Component {
                 <b>Disk</b><br />
                 <input id="disk" value={this.state.currentSpace.disk_quotamb || ''} onChange={(event) => this.handleDiskChange(event)} /><br />
                 <button id="save" onClick={() => this.props.saveSpace(this.state.currentSpace)}>Save</button>
+                <button id="cancel" onClick={() => this.props.cancelEdit(this.props.currentSpace)}>Cancel</button>
             </div>
         );
     }
@@ -56,7 +57,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        "saveSpace": (space) => dispatch(saveSpace(space))
+        "saveSpace": (space) => dispatch(saveSpace(space)),
+        "cancelEdit": (space) => dispatch(viewSpace(space))
     }
 };
 

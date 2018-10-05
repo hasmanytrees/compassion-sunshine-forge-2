@@ -5,11 +5,13 @@ import { SpaceEdit } from './SpaceEdit';
 
 describe('SpaceEdit', () => {
     let mockSave;
+    let mockCancel;
     let spaceEdit;
 
     beforeEach(() => {
         mockSave = jest.fn();
-        spaceEdit = shallow(<SpaceEdit saveSpace={mockSave} currentSpace={{ name: 'Test Space', memory_quotamb: 20, disk_quotamb: 40 }} />);
+        mockCancel = jest.fn();
+        spaceEdit = shallow(<SpaceEdit saveSpace={mockSave} cancelEdit={mockCancel} currentSpace={{ name: 'Test Space', memory_quotamb: 20, disk_quotamb: 40 }} />);
     });
 
     it('should exist and have text fields that are populated', () => {
@@ -56,5 +58,13 @@ describe('SpaceEdit', () => {
         expect(space.name).to.equal('New Test Space');
         expect(space.memory_quotamb).to.equal(30);
         expect(space.disk_quotamb).to.equal(50);
+    });
+
+    it('should show space detail view when cancel button is clicked', () => {
+        let cancelButton = spaceEdit.find('#cancel');
+
+        cancelButton.simulate('click');
+
+        expect(mockCancel.mock.calls.length).to.equal(1);
     });
 });

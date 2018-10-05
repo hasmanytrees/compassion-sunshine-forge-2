@@ -12,3 +12,10 @@
   overflow-x: hidden; /* Disable horizontal scroll */
   padding-top: 20px;
 }
+
+#spaceDetail #name {
+  font-size: 4em;
+}
+#editButton {
+  font-size: 1.5m;
+}

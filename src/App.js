@@ -8,6 +8,7 @@ import { editSpace, getSpaces } from './actions/index';
 import SpaceEdit from './SpaceEdit';
 import SpaceList from './SpaceList';
 import SpaceDetail from './SpaceDetail';
+import AppEdit from './AppEdit';
 
 library.add(faPenSquare);
 library.add(faTrash);
@@ -20,6 +21,10 @@ export class App extends Component {
     render() {
         const spaceEdit = this.props.view === 'SpaceEdit' ? <SpaceEdit /> : '';
         const spaceDetail = this.props.view === 'SpaceDetail' ? <SpaceDetail /> : '';
+        const appEdit = this.props.view === 'AppEdit' ? <AppEdit /> : '';
+
+        console.log(this.props.view);
+        console.log(appEdit);
 
         return (
             <div className="App">
@@ -29,6 +34,7 @@ export class App extends Component {
                 </div>
                 {spaceEdit}
                 {spaceDetail}
+                {appEdit}
             </div>
         );
     }
@@ -43,7 +49,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         'editSpace': (space) => dispatch(editSpace(space)),
-        'getSpaces': () => dispatch(getSpaces())
+        'getSpaces': () => dispatch(getSpaces()),
     }
 };
 

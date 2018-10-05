@@ -75,4 +75,20 @@ describe('async actions', () => {
 
         expect(actualActions).toEqual(expectedActions);
     });
+
+    it('should send EDIT_APP action to create/edit an app', async () => {
+        const mockApp = { name: 'Mock App' };
+
+        const expectedActions = [
+            { type: 'EDIT_APP', app: mockApp }
+        ];
+
+        const store = mockStore({});
+
+        await store.dispatch(actions.editApp(mockApp));
+
+        const actualActions = store.getActions();
+
+        expect(actualActions).toEqual(expectedActions);
+    });
 });

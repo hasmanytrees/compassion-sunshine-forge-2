@@ -21,12 +21,12 @@ describe('SpaceDetail', () => {
     };
 
     it('should render and bind data', () => {
-        const detail = shallowWithDefaults();
-        name = detail.find('#name');
-        memory = detail.find('#memory');
-        disk = detail.find('#disk');
+        const spaceDetail = shallowWithDefaults();
+        name = spaceDetail.find('#name');
+        memory = spaceDetail.find('#memory');
+        disk = spaceDetail.find('#disk');
 
-        expect(detail.find('#spaceDetail')).to.have.length(1);
+        expect(spaceDetail.find('#spaceDetail')).to.have.length(1);
 
         expect(name.text()).to.equal('Test Space');
         expect(memory.text()).to.equal('20');
@@ -35,8 +35,8 @@ describe('SpaceDetail', () => {
 
     it('displays an edit button that allows you to edit details when pressed', () => {
         const mockEdit = jest.fn();
-        const detail = shallowWithDefaults({ editSpace: mockEdit })
-        const editButton = detail.find('#editButton');
+        const spaceDetail = shallowWithDefaults({ editSpace: mockEdit })
+        const editButton = spaceDetail.find('#editButton');
 
         // Checks for the button
         expect(editButton).to.have.length(1);
@@ -48,8 +48,8 @@ describe('SpaceDetail', () => {
 
     it('displays a delete button that allows you to delete the space when pressed', () => {
         const mockDelete = jest.fn();
-        const remove = shallowWithDefaults({ deleteSpace: mockDelete });
-        const deleteButton = remove.find('#deleteButton');
+        const spaceDetail = shallowWithDefaults({ deleteSpace: mockDelete });
+        const deleteButton = spaceDetail.find('#deleteButton');
 
         expect(deleteButton).to.have.length(1);
 

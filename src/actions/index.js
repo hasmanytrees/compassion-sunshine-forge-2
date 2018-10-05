@@ -56,3 +56,5 @@ export const doDeleteSpace = (space) => {
             });
     }
 }
+
+export const editApp = (app) => ({ type: 'EDIT_APP', app });

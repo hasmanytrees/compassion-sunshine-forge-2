@@ -145,4 +145,25 @@ describe('reducer', () => {
         expect(newState.view).to.equal('');
         expect(newState.spaces.length).to.equal(mockSpaces.length - 1);
     });
+
+    it('should change to Edit App view for EDIT_APP', () => {
+        // setup space object to be edited
+        const testApp = { name: 'Space App', memory: 20, disk: 40 };
+
+        // setup an test state
+        const testState = {
+            view: 'SpaceDetails',
+            currentApp: null
+        };
+
+        // setup the action
+        const action = { type: 'EDIT_APP', app: testApp };
+
+        // execute reduce
+        const newState = reducer(testState, action);
+
+        // assert expected changes to state
+        expect(newState.view).to.equal('AppEdit');
+        expect(newState.currentApp).to.deep.equal(testApp);
+    });
 });

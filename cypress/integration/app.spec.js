@@ -142,7 +142,7 @@ describe('Main Page', function () {
         cy.get('#deleteButton').click();
     });
 
-    it.only('removes space from sidebar when delete is confirmed', function () {
+    it('removes space from sidebar when delete is confirmed', function () {
         cy.on('window:confirm', (str) => {
             expect(str).to.eq('Delete?');
         });
@@ -154,5 +154,21 @@ describe('Main Page', function () {
         cy.get('#deleteButton').click();
 
         cy.get('#spaceList').get('a').should('have.length', 0);
+    });
+
+    it('when viewing details of a space there is an add button', function () {
+        createSpace();
+
+        cy.get('#spaceList').get('a').first().click();
+
+        cy.get('#addApp');
+    });
+
+    it.only('clicking the Add App button goes to the Create App screen', function () {
+        createSpace();
+
+        cy.get('#addApp').click();
+
+        cy.get('#appEdit');
     });
 });

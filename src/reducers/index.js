@@ -3,7 +3,8 @@ import uuid from 'uuid';
 const initialState = {
     view: '',
     spaces: [],
-    currentSpace: null
+    currentSpace: null,
+    currentApp: null
 };
 
 const reducer = (state = initialState, action) => {
@@ -33,6 +34,8 @@ const reducer = (state = initialState, action) => {
         case 'DELETE_SPACE':
             spaces = state.spaces.filter((space) => space.id !== action.space.id);
             return { ...state, view: '', spaces, currentSpace: null };
+        case 'EDIT_APP':
+            return { ...state, view: 'AppEdit', currentApp: action.app };
         default:
             return state;
     }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import AppList from './AppList';
 import { editSpace, deleteSpace } from './actions/index';
 
 export class SpaceDetail extends Component {
@@ -9,7 +10,7 @@ export class SpaceDetail extends Component {
             <div id="spaceDetail">
                 <span id="name">{this.props.currentSpace.name}</span>&nbsp;
                 <FontAwesomeIcon id="editButton" icon="pen-square" onClick={() => this.props.editSpace(this.props.currentSpace)} />&nbsp;
-                <FontAwesomeIcon id="editButton" icon="trash" onClick={() => this.props.deleteSpace(this.props.currentSpace)} />
+                <FontAwesomeIcon id="deleteButton" icon="trash" onClick={() => this.props.deleteSpace(this.props.currentSpace)} />
                 <br />
                 <b>Memory</b>
                 <br />
@@ -19,6 +20,7 @@ export class SpaceDetail extends Component {
                 <br />
                 <span id="disk">{this.props.currentSpace.disk_quotamb}</span>
                 <br />
+                <AppList />
             </div>
         )
     }
